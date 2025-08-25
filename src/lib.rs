@@ -1,29 +1,10 @@
-use std::collections::HashMap;
-use std::ops::Rem;
 use std::sync::Arc;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering::SeqCst;
 use nih_plug::prelude::*;
-use vizia_plug::ViziaState;
-use nih_plug::prelude::SmoothingStyle::Linear;
+use crate::params::VelocityMapperParams;
 
 mod editor;
+mod params;
 
-#[derive(Params)]
-pub struct VelocityMapperParams {
-    /// The editor state, saved together with the parameter state so the custom scaling can be
-    /// restored.
-    #[persist = "editor-state"]
-    pub editor_state: Arc<ViziaState>,
-}
-
-impl Default for VelocityMapperParams {
-    fn default() -> Self {
-        Self {
-            editor_state: editor::default_state(),
-        }
-    }
-}
 
 struct VelocityMapper {
     params: Arc<VelocityMapperParams>,
