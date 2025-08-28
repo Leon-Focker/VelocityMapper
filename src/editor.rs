@@ -7,6 +7,7 @@ use vizia_plug::vizia::prelude::Anchor::Center;
 use vizia_plug::vizia::style::FontWeightKeyword::Bold;
 use vizia_plug::widgets::{ParamButton, ParamSlider};
 use crate::params::VelocityMapperParams;
+use crate::gui::dropdown_param::DropDownParam;
 
 #[derive(Lens, Clone)]
 pub(crate) struct Data {
@@ -20,7 +21,7 @@ impl Model for Data {
 
 // Makes sense to also define this here, makes it a bit easier to keep track of
 pub(crate) fn default_state() -> Arc<ViziaState> {
-    ViziaState::new(|| (600, 500))
+    ViziaState::new(|| (600, 700))
 }
 
 pub(crate) fn create(
@@ -39,10 +40,17 @@ pub(crate) fn create(
                 .font_weight(Bold)
                 .font_size(25.0);
 
-            range_selector(cx, 1);
-            range_selector(cx, 2);
-            range_selector(cx, 3);
-            range_selector(cx, 4);
+            DropDownParam::new(cx,
+                               Data::params,
+                               |params| &params.range1.range_min,
+            );
+
+            ParamSlider::new(cx, Data::params, |params| &params.range1.range_min);
+
+            // range_selector(cx, 1);
+            // range_selector(cx, 2);
+            //range_selector(cx, 3);
+            // range_selector(cx, 4);
 
         })
             .alignment(Alignment::TopCenter);

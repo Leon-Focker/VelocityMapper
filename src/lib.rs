@@ -4,7 +4,7 @@ use crate::params::VelocityMapperParams;
 
 mod editor;
 mod params;
-
+mod gui;
 
 struct VelocityMapper {
     params: Arc<VelocityMapperParams>,
