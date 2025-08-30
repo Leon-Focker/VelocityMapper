@@ -13,17 +13,23 @@ pub struct VelocityMapperParams {
     #[persist = "editor-state"]
     pub editor_state: Arc<ViziaState>,
 
-    #[nested(group = "range1")]
+    #[nested(id_prefix = "range1", group = "range1")]
     pub range1: RangeParams,
 
-    #[nested(group = "range2")]
+    #[nested(id_prefix = "range2", group = "range3")]
     pub range2: RangeParams,
 
-    #[nested(group = "range3")]
+    #[nested(id_prefix = "range3", group = "range3")]
     pub range3: RangeParams,
 
-    #[nested(group = "range4")]
+    #[nested(id_prefix = "range4", group = "range4")]
     pub range4: RangeParams,
+
+    // TODO can we have a flexible amount of ranges??
+    // pub how_many: u8,
+    //
+    // #[nested(array, group = "ranges")]
+    // pub ranges: Vec<RangeParams>,
 }
 
 #[derive(Params)]
