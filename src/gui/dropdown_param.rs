@@ -21,6 +21,8 @@ pub struct DropDownParam {
     /// The number of (fractional) scrolled lines that have not yet been turned into parameter
     /// change events. This is needed to support trackpads with smooth scrolling.
     scrolled_lines: f32,
+
+    // TODO have an offset for displayed numbers
 }
 
 #[derive(Debug, Clone, Copy)]

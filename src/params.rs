@@ -1,11 +1,6 @@
-use std::collections::HashMap;
-use std::ops::Rem;
 use std::sync::Arc;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering::SeqCst;
 use nih_plug::prelude::*;
 use vizia_plug::ViziaState;
-use nih_plug::prelude::SmoothingStyle::Linear;
 use crate::editor;
 
 #[derive(Params)]
@@ -13,20 +8,9 @@ pub struct VelocityMapperParams {
     #[persist = "editor-state"]
     pub editor_state: Arc<ViziaState>,
 
-    // #[nested(id_prefix = "range1", group = "range1")]
-    // pub range1: RangeParams,
-    //
-    // #[nested(id_prefix = "range2", group = "range3")]
-    // pub range2: RangeParams,
-    //
-    // #[nested(id_prefix = "range3", group = "range3")]
-    // pub range3: RangeParams,
-    //
-    // #[nested(id_prefix = "range4", group = "range4")]
-    // pub range4: RangeParams,
-
     // TODO can we have a flexible amount of ranges??
-    // pub how_many: u8,
+    // #[id = "how_many"]
+    // pub how_many: IntParam,
 
     #[nested(array, group = "ranges")]
     pub ranges: Vec<RangeParams>,
@@ -52,10 +36,11 @@ impl Default for VelocityMapperParams {
         Self {
             editor_state: editor::default_state(),
 
-            // range1: Default::default(),
-            // range2: Default::default(),
-            // range3: Default::default(),
-            // range4: Default::default(),
+            // how_many: IntParam::new(
+            //     "how many",
+            //     4,
+            //     IntRange::Linear { min: 1, max: 10 }
+            // ).non_automatable(),
 
             ranges: vec![RangeParams::default(), RangeParams::default(), RangeParams::default(), RangeParams::default()],
         }

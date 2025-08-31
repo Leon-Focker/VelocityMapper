@@ -1,4 +1,4 @@
-use nih_plug::prelude::{Editor, Param};
+use nih_plug::prelude::{Editor};
 use vizia_plug::vizia::prelude::*;
 use vizia_plug::{create_vizia_editor, ViziaState, ViziaTheming};
 use std::sync::Arc;
@@ -16,6 +16,7 @@ const NEW_STYLE: &str = r#"
 #[derive(Lens, Clone)]
 pub(crate) struct Data {
     pub(crate) params: Arc<VelocityMapperParams>,
+    // pub(crate) how_many: usize,
 }
 
 impl Model for Data {
@@ -38,6 +39,7 @@ pub(crate) fn create(
 
         Data {
             params: params.clone(),
+            //how_many: params.how_many.value() as usize,
         }
             .build(cx);
 
@@ -48,18 +50,18 @@ pub(crate) fn create(
 
             Element::new(cx).height(Pixels(15.0));
 
-            // TODO this might(!) be abstractable when all ranges are in a vector
+            // DropDownParam::new(cx, Data::params, |params| &params.how_many);
 
-            ScrollView::new(cx, |cx| {
-                
-                for x in 0..4 {
-                    Element::new(cx).height(Pixels(10.0));
+            //ScrollView::new(cx, |cx| {
 
-                    range_selector(cx, Data::params, move |params| &params.ranges[x], &(x+1).to_string());
-                }
-                
-                Element::new(cx).height(Pixels(15.0));
-            });
+                //Binding::new(cx, Data::how_many, |cx, how_many| {
+                    for x in 0..4 { //how_many.get(cx) {
+                        range_selector(cx, Data::params, move |params| &params.ranges[x], &(x+1).to_string());
+
+                        Element::new(cx).height(Pixels(10.0));
+                    }
+                //});
+            //});
         })
             .alignment(Alignment::TopCenter);
     })
