@@ -2,7 +2,9 @@
 
 A simple Midi Plugin which filters or changes the pitch of incoming Midi Notes depending on their velocity. 
 
-This Plugin was built using the [nih_plug framework](https://github.com/robbert-vdh/nih-plug).
+![Plugin Gui](./gui_velocity_mapper.png)
+
+This Plugin was built using the [nih_plug framework](https://github.com/robbert-vdh/nih-plug) and [vizia-plug](https://github.com/vizia/vizia-plug).
 
 ## Building
 
