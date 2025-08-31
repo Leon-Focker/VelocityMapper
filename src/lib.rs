@@ -29,15 +29,12 @@ impl Default for VelocityMapper {
 
 impl VelocityMapper {
     fn get_remapped_pitch(&mut self, velocity: f32) -> Option<u8> {
-        if let Some(pitch) = matches_range(velocity, &self.params.range1) {
-            Some(pitch)
-        } else if let Some(pitch) = matches_range(velocity, &self.params.range2) {
-            Some(pitch)
-        } else if let Some(pitch) = matches_range(velocity, &self.params.range3) {
-            Some(pitch)
-        } else if let Some(pitch) = matches_range(velocity, &self.params.range4) {
-            Some(pitch)
-        } else { return None }
+        for range_params in &self.params.ranges {
+            if let Some(pitch) =  matches_range(velocity, range_params) {
+                return Some(pitch);
+            }
+        }
+        None
     }
 
     fn next_free_index(&self, channel: u8, old_pitch: u8) -> Option<usize> {

@@ -3,7 +3,7 @@ use vizia_plug::vizia::prelude::*;
 use vizia_plug::{create_vizia_editor, ViziaState, ViziaTheming};
 use std::sync::Arc;
 use vizia_plug::vizia::style::FontWeightKeyword::Bold;
-use vizia_plug::widgets::{ParamButton, ParamSlider};
+use vizia_plug::widgets::{ParamButton};
 use crate::params::{RangeParams, VelocityMapperParams};
 use crate::gui::dropdown_param::DropDownParam;
 
@@ -50,20 +50,16 @@ pub(crate) fn create(
 
             // TODO this might(!) be abstractable when all ranges are in a vector
 
-            range_selector(cx, Data::params, |params| &params.range1, &1.to_string());
+            ScrollView::new(cx, |cx| {
+                
+                for x in 0..4 {
+                    Element::new(cx).height(Pixels(10.0));
 
-            Element::new(cx).height(Pixels(10.0));
-
-            range_selector(cx, Data::params, |params| &params.range2, &2.to_string());
-
-            Element::new(cx).height(Pixels(10.0));
-
-            range_selector(cx, Data::params, |params| &params.range3, &3.to_string());
-
-            Element::new(cx).height(Pixels(10.0));
-
-            range_selector(cx, Data::params, |params| &params.range4, &4.to_string());
-
+                    range_selector(cx, Data::params, move |params| &params.ranges[x], &(x+1).to_string());
+                }
+                
+                Element::new(cx).height(Pixels(15.0));
+            });
         })
             .alignment(Alignment::TopCenter);
     })
